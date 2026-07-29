@@ -1,0 +1,30 @@
+{
+  "count": 1000,
+  "curvature": 1.0,
+  "dataset_id": "DATA-2026-001",
+  "dimension": 128,
+  "epsilon": 1e-05,
+  "generator_sha256": "9a01be3eeb7c22d8478f3399c802cc00bc595ad4c49e2fe85ab6f587a66c8272",
+  "generator_version": "1.1.0",
+  "hierarchy": {
+    "branching_factor": 4,
+    "file": "hierarchy.csv",
+    "relationship_to_vectors": "labels are independent of vector coordinates"
+  },
+  "max_norm": 0.99999,
+  "payload": {
+    "byte_size": 512000,
+    "file": "vectors.f32le",
+    "format": "contiguous IEEE 754 binary32, little-endian",
+    "sha256": "7b1554ebef2f79ccc7e43842dd97a06227914534ef12c3818ae12e1cd57d0390"
+  },
+  "schema_version": 1,
+  "seed": 42,
+  "splits": {
+    "test": 150,
+    "train": 700,
+    "validation": 150
+  },
+  "status": "repository_release",
+  "title": "Poincare Hyperbolic Latent Numerical Fixture"
+}

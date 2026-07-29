@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-07-29",
+  "orcid_id": "0009-0009-1286-3683",
+  "orcid_url": "https://orcid.org/0009-0009-1286-3683",
+  "creator": {
+    "name": "Sylvain Galliez",
+    "orcid": "https://orcid.org/0009-0009-1286-3683"
+  },
+  "repository": {
+    "url": "https://github.com/zedarvates/shardjepa-publications",
+    "release": "v2026.07.29",
+    "release_url": "https://github.com/zedarvates/shardjepa-publications/releases/tag/v2026.07.29"
+  },
+  "validation": {
+    "date": "2026-07-29",
+    "source_commit": "33b6fbb",
+    "source_state": "benchmark measurements used this commit plus uncommitted working-tree changes",
+    "evidence": "publications/artifacts/2026-07-29/benchmark-results.md"
+  },
+  "research_outputs": [
+    {
+      "id": "PUB-2026-001",
+      "citation_key": "galliez2026shardjepa_runtime",
+      "type": "preprint",
+      "title": "ShardJEPA: A Low-Level Rust Runtime for Latent Joint Embedding Predictive Architecture Experiments",
+      "status": "repository_preprint",
+      "version": "2026.07.29",
+      "path": "publications/papers/01-shardjepa-runtime/paper.md",
+      "doi": null,
+      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.07.29/papers/01-shardjepa-runtime/paper.md",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "id": "PUB-2026-002",
+      "citation_key": "galliez2026shardjepa_poincare",
+      "type": "preprint",
+      "title": "Poincare Candidate Ranking in ShardJEPA: Implementation Contract and Local Baseline",
+      "status": "repository_preprint",
+      "version": "2026.07.29",
+      "path": "publications/papers/02-hyperbolic-latent-manifolds/paper.md",
+      "doi": null,
+      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.07.29/papers/02-hyperbolic-latent-manifolds/paper.md",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "id": "PUB-2026-003",
+      "citation_key": "galliez2026shardjepa_dendritron",
+      "type": "preprint",
+      "title": "Dendritron in ShardJEPA: A Deterministic Scalar-Branch Latent Transformer",
+      "status": "repository_preprint",
+      "version": "2026.07.29",
+      "path": "publications/papers/03-dendritic-gated-jepa/paper.md",
+      "doi": null,
+      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.07.29/papers/03-dendritic-gated-jepa/paper.md",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "id": "TR-2026-001",
+      "citation_key": "galliez2026shardjepa_storage_quantization",
+      "type": "technical_report",
+      "title": "ShardJEPA Memory-Mapped Access Contract and Packed Quantization Baseline",
+      "status": "validated_draft",
+      "version": "2026.07.29",
+      "path": "publications/reports/TR-2026-001-mmap-quantization.md",
+      "doi": null,
+      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.07.29/reports/TR-2026-001-mmap-quantization.md",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "id": "DATA-2026-001",
+      "citation_key": "galliez2026shardjepa_poincare_dataset",
+      "type": "dataset",
+      "title": "Poincare Hyperbolic Latent Benchmark",
+      "status": "released",
+      "version": "2026.07.29",
+      "path": "publications/datasets/DATA-2026-001-poincare-benchmark/README.md",
+      "doi": null,
+      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.07.29/datasets/DATA-2026-001-poincare-benchmark/README.md",
+      "license": "CC-BY-4.0"
+    }
+  ]
+}
