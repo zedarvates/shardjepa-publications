@@ -12,7 +12,7 @@ Depuis la racine de ShardJEPA :
 rtk cargo check --workspace --all-targets
 rtk cargo test --workspace --all-targets
 rtk python publications/tools/export_metadata.py
-rtk python publications/tools/package_release.py --version 2026.07.29
+rtk python publications/tools/package_release.py --version 2026.08.01
 ```
 
 Le dernier script crée un ZIP et affiche son SHA-256. Conserver le ZIP et le
@@ -25,7 +25,7 @@ les textes citables par URL et version, mais n'attribue pas de DOI et ne
 constitue pas une validation par les pairs.
 
 1. Publier le contenu validé de `publications/`.
-2. Créer un tag, par exemple `v2026.07.29`.
+2. Créer un tag, par exemple `v2026.08.01`.
 3. Joindre le ZIP généré et son SHA-256 à la release.
 4. Vérifier les URL publiques avant de marquer le registre comme diffusé.
 
@@ -43,17 +43,23 @@ rtk python publications/tools/publish_zenodo.py `
   --title "ShardJEPA research publications, 2026.07.29"
 ```
 
-Créer un brouillon Zenodo après avoir défini `ZENODO_API_TOKEN` :
+Créer un brouillon Zenodo après avoir défini `ZENODO_API_TOKEN` avec le droit
+`deposit:write` :
 
 ```powershell
 rtk python publications/tools/publish_zenodo.py `
-  publications/dist/shardjepa-publications-2026.07.29.zip `
-  --title "ShardJEPA research publications, 2026.07.29" `
+  publications/dist/shardjepa-publications-2026.08.01.zip `
+  --title "ShardJEPA research publications, 2026.08.01" `
   --execute --yes
 ```
 
-Ajouter `--publish` uniquement après vérification manuelle des métadonnées et
-du fichier : cette action rend le dépôt public et non supprimable via l'API.
+Ajouter `--publish` uniquement avec le droit `deposit:actions`, après
+vérification manuelle des métadonnées et du fichier : cette action rend le
+dépôt public et non supprimable via l'API.
+
+La présence d'une release GitHub ne crée un dépôt Zenodo automatiquement que si
+l'intégration Zenodo du dépôt a été activée auparavant. Vérifier le DOI réel
+avant de modifier le registre.
 
 ## 4. Soumettre sur arXiv ou HAL
 
@@ -67,7 +73,9 @@ rtk python publications/tools/package_arxiv.py 01-shardjepa-runtime --check
 
 La soumission arXiv ou HAL reste une action de l'auteur : elle implique choix
 de catégorie, licence, déclarations d'auteur, éventuelle approbation et revue
-du rendu final. Après acceptation, enregistrer l'identifiant réel dans
+du rendu final. HAL peut automatiser un dépôt via son endpoint SWORD avec un
+compte autorisé ; ce dépôt n'utilise pas le script Zenodo. Après acceptation,
+enregistrer l'identifiant réel dans
 `ORCID_INDEX.json` et `citations.bib`.
 
 ## 5. Mettre à jour ORCID
@@ -81,4 +89,3 @@ ORCID après création d'une URL publique ou d'un DOI.
 ```powershell
 rtk python publications/tools/sync_orcid.py --check
 ```
-

@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "benchmark": "reasoner-benchmark-v2",
+  "generated_unix_seconds": 1785316262,
+  "source_revision": "b94646aa38d9397bd7f306ee132984a2715822e3",
+  "source_dirty": true,
+  "os": "windows",
+  "arch": "x86_64",
+  "dimension": 128,
+  "draft_k": 10,
+  "warmup_iterations": 20,
+  "sample_count": 30,
+  "iterations_per_sample": 20,
+  "timing_cases": [
+    {
+      "candidate_count": 50,
+      "exact_microseconds": {
+        "mean": 34.35799999999999,
+        "median": 32.965,
+        "standard_deviation": 2.8769250366783394,
+        "p95": 42.385,
+        "minimum": 32.61,
+        "maximum": 44.18
+      },
+      "speculative_microseconds": {
+        "mean": 13.654666666666667,
+        "median": 13.214999999999998,
+        "standard_deviation": 1.1035185645118173,
+        "p95": 16.625,
+        "minimum": 12.99,
+        "maximum": 18.125
+      },
+      "median_speedup": 2.4945138100643214
+    },
+    {
+      "candidate_count": 200,
+      "exact_microseconds": {
+        "mean": 132.39333333333332,
+        "median": 132.31,
+        "standard_deviation": 4.139132625187172,
+        "p95": 139.825,
+        "minimum": 126.40500000000002,
+        "maximum": 143.325
+      },
+      "speculative_microseconds": {
+        "mean": 24.177333333333333,
+        "median": 23.169999999999998,
+        "standard_deviation": 1.876415791401847,
+        "p95": 28.575,
+        "minimum": 22.580000000000002,
+        "maximum": 28.99
+      },
+      "median_speedup": 5.710401381096245
+    },
+    {
+      "candidate_count": 1000,
+      "exact_microseconds": {
+        "mean": 679.3080000000001,
+        "median": 679.3,
+        "standard_deviation": 10.186240359753281,
+        "p95": 693.365,
+        "minimum": 656.015,
+        "maximum": 705.97
+      },
+      "speculative_microseconds": {
+        "mean": 82.06500000000001,
+        "median": 81.64500000000001,
+        "standard_deviation": 1.1258981599890234,
+        "p95": 83.83000000000001,
+        "minimum": 80.935,
+        "maximum": 86.39
+      },
+      "median_speedup": 8.320166574805558
+    }
+  ],
+  "fidelity_cases": [
+    {
+      "dimension": 2,
+      "candidate_count": 50,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.8890000000000002
+    },
+    {
+      "dimension": 2,
+      "candidate_count": 200,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.8950000000000001
+    },
+    {
+      "dimension": 2,
+      "candidate_count": 1000,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.9359999999999998
+    },
+    {
+      "dimension": 16,
+      "candidate_count": 50,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.8780000000000002
+    },
+    {
+      "dimension": 16,
+      "candidate_count": 200,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.8180000000000004
+    },
+    {
+      "dimension": 16,
+      "candidate_count": 1000,
+      "trials": 100,
+      "top1_agreement": 0.99,
+      "recall_at_draft_k": 0.7479999999999996
+    },
+    {
+      "dimension": 128,
+      "candidate_count": 50,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.9560000000000004
+    },
+    {
+      "dimension": 128,
+      "candidate_count": 200,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.8969999999999999
+    },
+    {
+      "dimension": 128,
+      "candidate_count": 1000,
+      "trials": 100,
+      "top1_agreement": 1.0,
+      "recall_at_draft_k": 0.7980000000000004
+    }
+  ]
+}

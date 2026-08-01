@@ -8,6 +8,7 @@ import hashlib
 import json
 import sys
 import zipfile
+from datetime import datetime
 from pathlib import Path
 
 
@@ -27,8 +28,21 @@ def iter_release_files(root: Path):
         yield path, relative
 
 
-def add_deterministic(zip_file: zipfile.ZipFile, source: Path, relative: Path) -> None:
-    info = zipfile.ZipInfo(relative.as_posix(), date_time=(2026, 7, 29, 0, 0, 0))
+def release_timestamp(version: str) -> tuple[int, int, int, int, int, int]:
+    try:
+        parsed = datetime.strptime(version, "%Y.%m.%d")
+    except ValueError as error:
+        raise ValueError("release version must use YYYY.MM.DD") from error
+    return (parsed.year, parsed.month, parsed.day, 0, 0, 0)
+
+
+def add_deterministic(
+    zip_file: zipfile.ZipFile,
+    source: Path,
+    relative: Path,
+    timestamp: tuple[int, int, int, int, int, int],
+) -> None:
+    info = zipfile.ZipInfo(relative.as_posix(), date_time=timestamp)
     info.compress_type = zipfile.ZIP_DEFLATED
     info.external_attr = 0o100644 << 16
     zip_file.writestr(info, source.read_bytes())
@@ -54,6 +68,11 @@ def main() -> int:
     root = Path(__file__).resolve().parent.parent
     registry = json.loads((root / "ORCID_INDEX.json").read_text(encoding="utf-8"))
     version = args.version or registry["repository"]["release"].removeprefix("v")
+    try:
+        timestamp = release_timestamp(version)
+    except ValueError as error:
+        print(f"[ERROR] {error}")
+        return 2
     output = args.output or root / "dist" / f"shardjepa-publications-{version}.zip"
     output = output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -65,7 +84,7 @@ def main() -> int:
 
     with zipfile.ZipFile(output, "w") as zip_file:
         for source, relative in files:
-            add_deterministic(zip_file, source, relative)
+            add_deterministic(zip_file, source, relative, timestamp)
 
     digest = sha256(output)
     checksum_path = output.with_suffix(output.suffix + ".sha256")
@@ -79,4 +98,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

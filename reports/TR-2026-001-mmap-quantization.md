@@ -2,8 +2,8 @@
 
 **Author:** Sylvain Galliez  
 **ORCID:** [https://orcid.org/0009-0009-1286-3683](https://orcid.org/0009-0009-1286-3683)  
-**Version:** 2026.07.29  
-**Status:** Validated technical draft; not externally archived; no DOI  
+**Version:** 2026.08.01
+**Status:** Repository technical report; not peer reviewed; no DOI
 **License:** CC BY 4.0
 
 ## 1. Executive summary
@@ -17,7 +17,8 @@ claim.
 
 The release-mode quantization harness measured exact packed-payload ratios of
 4x for INT8 and 8x for INT4. These ratios exclude metadata and allocator
-overhead.
+overhead. A separate synthetic autoresearch fixture now measures distortion in
+Poincare distance and favors INT8 under its declared combined objective.
 
 ## 2. Storage contract
 
@@ -71,7 +72,34 @@ payload size, not mean-squared error or downstream accuracy.
 These are local loop means from one benchmark invocation. They are not latency
 percentiles or cross-machine guarantees.
 
-## 6. Open measurements
+## 6. Hyperbolic-distortion development fixture
+
+The current `latent_compression_experiment` compares payload ratio with mean
+absolute change in Poincare distance over its deterministic soft-token fixture.
+Its declared objective is
+
+\[
+S = D_H + \frac{0.1}{R},
+\]
+
+where \(D_H\) is mean distance distortion and \(R\) is payload compression.
+Two consecutive replays on 2026-08-01 produced:
+
+| Encoding | Payload ratio | \(D_H\) | Combined score | Decision |
+|---|---:|---:|---:|---|
+| F32 | 1.00x | 0.000000 | 0.200000 | baseline |
+| INT8 | 4.00x | 0.003660 | 0.028660 | keep |
+| INT4 | 8.00x | 0.085266 | 0.097766 | discard relative to INT8 |
+
+An earlier 2026-07-30 development note recorded `0.001648` and `0.048712` for
+INT8 and INT4. The current source therefore preserves the qualitative decision
+but not the exact historic values. Until a clean tagged fixture is released,
+the numbers must remain tied to their dated source states.
+
+This experiment does not measure a trained model, downstream task accuracy,
+energy, memory-map throughput, or a cross-dataset ranking guarantee.
+
+## 7. Open measurements
 
 Before promoting this draft to an archived technical report:
 
@@ -82,10 +110,10 @@ Before promoting this draft to an archived technical report:
 5. compute quantization error and task-level effects on a released dataset;
 6. repeat samples and report variance or confidence intervals.
 
-## 7. Conclusion
+## 8. Conclusion
 
 The implemented evidence supports a read-only mapped-byte contract and exact
-packed-payload ratios, plus local quantization timing. It does not yet support
+packed-payload ratios, local quantization timing, and a dated synthetic
+distortion comparison that currently favors INT8. It does not yet support
 claims of zero-copy float inference, 8.4 GB/s storage throughput, lower memory
 use for the complete object graph, or unchanged ranking accuracy.
-

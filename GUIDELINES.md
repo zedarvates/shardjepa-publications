@@ -57,6 +57,7 @@ Use only these public labels:
 
 - **Draft:** incomplete and not released.
 - **Repository preprint:** versioned public manuscript; not peer reviewed.
+- **Repository technical report:** versioned public technical report; not peer reviewed.
 - **Archived preprint:** deposited in a recognized archive with a stable ID.
 - **Published:** accepted or formally published by the named venue.
 - **Planned dataset:** no data artifact exists yet.
@@ -68,4 +69,3 @@ Record the command, compiler, OS, CPU, input shape, iteration count, and source
 state. Report the statistic the harness actually computes. A single elapsed
 loop divided by iterations is a local mean; it is not a confidence interval,
 percentile, or cross-machine comparison.
-

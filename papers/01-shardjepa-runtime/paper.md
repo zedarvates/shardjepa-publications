@@ -2,7 +2,7 @@
 
 **Author:** Sylvain Galliez  
 **ORCID:** [https://orcid.org/0009-0009-1286-3683](https://orcid.org/0009-0009-1286-3683)  
-**Version:** 2026.07.29  
+**Version:** 2026.08.01
 **Status:** Repository preprint; not peer reviewed; no DOI  
 **License:** CC BY 4.0
 
@@ -33,8 +33,8 @@ than application-specific schemas inside `src/`.
 
 The 0.1.0 crate exposes these principal surfaces:
 
-- `latent`: validated shards, prediction requests, reference predictors, and
-  weight manifests;
+- `latent`: validated dense and columnar shards, prediction requests,
+  reference and multi-step predictors, and weight manifests;
 - `hyperbolic`: Poincare and Lorentz geometry plus candidate reasoners;
 - `dendritron`: deterministic latent transformations;
 - `storage`: a byte-bounded cache and read-only memory mappings;
@@ -90,6 +90,17 @@ INT8 stores one byte per value. INT4 stores two signed nibbles per byte.
 Reported compression ratios count packed payload bytes only; object metadata
 and allocator overhead are excluded.
 
+### 2.5 Development additions after the first snapshot
+
+The current development surface adds `LatentColumnarBatch` for validated
+column-major batches and `MultiStepPredictor` for recursively applying an
+injected predictor over an explicit horizon. These are inference contracts,
+not evidence that a representation or transition model was trained.
+
+Training, latent-dynamics fitting, hierarchical planning, task-local experts,
+and agent sessions remain in independent workspace tools. They do not add
+training or orchestration dependencies to the low-level crate.
+
 ## 3. Local baseline
 
 Measurements were taken on 2026-07-29 with Rust 1.97.0, Windows 11, and an AMD
@@ -129,10 +140,12 @@ energy use, allocation counts, or comparisons with other frameworks.
 At benchmark time, the workspace passed `cargo check --workspace --all-targets`
 and 112 tests across 37 suites. Four benchmark executables also completed. The
 measurement source state was commit `33b6fbb` plus uncommitted working-tree
-changes; it was not a clean tagged source release. Before final publication
+changes; it was not a clean tagged source release. Before the first publication
 packaging, formatting, workspace check, 122 tests across 39 suites, and strict
-Clippy all passed on the then-current worktree. The numeric tables still belong
-to the earlier recorded measurement state.
+Clippy all passed on the then-current worktree. On 2026-08-01, the enlarged
+current workspace passed formatting, compilation, strict Clippy, and 208 tests
+across 69 suites. The numeric tables still belong to the earlier recorded
+measurement state and were not silently relabeled as new measurements.
 
 These facts limit exact reproduction from the documentation repository alone.
 The evidence is suitable as a transparent development snapshot, not as a
@@ -141,7 +154,8 @@ stable cross-machine performance study.
 ## 5. Limitations
 
 - No training loop or learned weights are evaluated.
-- No public latent dataset is included in this release.
+- The public Poincare fixture is a deterministic numerical dataset; no trained
+  model corpus or learned latent dataset is included.
 - Benchmarks have no warm-up policy, repeated samples, variance, confidence
   intervals, or CPU-frequency controls.
 - mmap access is not compared against buffered I/O.
@@ -151,9 +165,10 @@ stable cross-machine performance study.
 ## 6. Conclusion
 
 ShardJEPA 0.1.0 supplies a bounded, inspectable Rust substrate for latent-space
-experiments. The present contribution is the runtime contract and a local
-baseline. Claims about learned JEPA quality, hierarchy representation, and
-production performance remain future experimental work.
+experiments. The present contribution is the runtime contract, expanded
+inference boundaries, and dated local baselines. Task-local training now exists
+in a standalone tool, but claims about learned JEPA quality, hierarchy
+representation, and production performance remain future experimental work.
 
 ## References
 

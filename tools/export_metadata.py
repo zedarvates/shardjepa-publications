@@ -11,6 +11,7 @@ from pathlib import Path
 
 PUBLIC_STATUSES = {
     "repository_preprint",
+    "repository_technical_report",
     "archived_preprint",
     "published",
     "validated_draft",
@@ -96,6 +97,16 @@ def validate(publications_root: Path) -> tuple[list[str], list[str], dict]:
         elif not resolve_publication_path(publications_root, path_value).is_file():
             errors.append(f"{label}: referenced file is missing: {path_value}")
 
+        alternate_paths = item.get("alternate_paths", [])
+        if not isinstance(alternate_paths, list):
+            errors.append(f"{label}: alternate_paths must be a list when present")
+        else:
+            for alternate_path in alternate_paths:
+                if not isinstance(alternate_path, str) or not alternate_path:
+                    errors.append(f"{label}: alternate_paths entries must be non-empty strings")
+                elif not resolve_publication_path(publications_root, alternate_path).is_file():
+                    errors.append(f"{label}: alternate file is missing: {alternate_path}")
+
         citation_key = item.get("citation_key")
         if citation_key:
             if citation_key in seen_keys:
@@ -158,4 +169,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
