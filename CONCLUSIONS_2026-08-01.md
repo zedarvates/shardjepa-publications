@@ -62,6 +62,18 @@ deterministic rules, small learned experts, retrieval, latent prediction, and
 bounded planning. The next leap in credibility requires clean source releases
 and transfer experiments, not more architectural labels.
 
+## Post-snapshot evidence — 2026-08-06
+
+A fixed-size speculative-reasoner sweep tested `draft_k` values from 4 through
+128 under an explicit combined gate: minimum top-1 agreement 99%, minimum
+recall@K 80%, speedup at 1,000 candidates at least 3x, and no median slowdown
+at 50 or 200 candidates. No fixed draft size passed.
+
+Small drafts remained fast but lost fidelity. Large drafts restored fidelity
+but became slower than exhaustive ranking on 50 candidates. The appropriate
+next hypothesis is an adaptive policy with an exact-ranking fallback, not a
+weaker acceptance threshold.
+
 ## Recommended next evidence gates
 
 1. Commit the current source surface and reproduce all published results from a
@@ -79,5 +91,6 @@ and transfer experiments, not more architectural labels.
 
 - [`artifacts/2026-08-01/current-validation.md`](artifacts/2026-08-01/current-validation.md)
 - [`artifacts/2026-07-29/reasoner-benchmark-v2.md`](artifacts/2026-07-29/reasoner-benchmark-v2.md)
+- [`artifacts/2026-08-06/reasoner-draft-sweep-v3.md`](artifacts/2026-08-06/reasoner-draft-sweep-v3.md)
 - [`artifacts/2026-07-29/nano-nn-huggingface-audit.md`](artifacts/2026-07-29/nano-nn-huggingface-audit.md)
 - [`RELEASE_NOTES_2026-08-01.md`](RELEASE_NOTES_2026-08-01.md)

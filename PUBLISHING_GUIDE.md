@@ -12,7 +12,7 @@ Depuis la racine de ShardJEPA :
 rtk cargo check --workspace --all-targets
 rtk cargo test --workspace --all-targets
 rtk python publications/tools/export_metadata.py
-rtk python publications/tools/package_release.py --version 2026.08.01
+rtk python publications/tools/package_release.py --version 2026.08.06
 ```
 
 Le dernier script crée un ZIP et affiche son SHA-256. Conserver le ZIP et le
@@ -25,7 +25,7 @@ les textes citables par URL et version, mais n'attribue pas de DOI et ne
 constitue pas une validation par les pairs.
 
 1. Publier le contenu validé de `publications/`.
-2. Créer un tag, par exemple `v2026.08.01`.
+2. Créer un tag, par exemple `v2026.08.06`.
 3. Joindre le ZIP généré et son SHA-256 à la release.
 4. Vérifier les URL publiques avant de marquer le registre comme diffusé.
 
@@ -48,8 +48,8 @@ Créer un brouillon Zenodo après avoir défini `ZENODO_API_TOKEN` avec le droit
 
 ```powershell
 rtk python publications/tools/publish_zenodo.py `
-  publications/dist/shardjepa-publications-2026.08.01.zip `
-  --title "ShardJEPA research publications, 2026.08.01" `
+  publications/dist/shardjepa-publications-2026.08.06.zip `
+  --title "ShardJEPA research publications, 2026.08.06" `
   --execute --yes
 ```
 

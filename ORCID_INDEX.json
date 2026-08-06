@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-01",
+  "updated_at": "2026-08-06",
   "orcid_id": "0009-0009-1286-3683",
   "orcid_url": "https://orcid.org/0009-0009-1286-3683",
   "creator": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "url": "https://github.com/zedarvates/shardjepa-publications",
-    "release": "v2026.08.01",
-    "release_url": "https://github.com/zedarvates/shardjepa-publications/releases/tag/v2026.08.01"
+    "release": "v2026.08.06",
+    "release_url": "https://github.com/zedarvates/shardjepa-publications/releases/tag/v2026.08.06"
   },
   "validation": {
-    "date": "2026-08-01",
+    "date": "2026-08-06",
     "source_commit": "b94646a",
     "source_state": "validation used this commit plus uncommitted and untracked working-tree changes",
-    "evidence": "publications/artifacts/2026-08-01/current-validation.md"
+    "evidence": "publications/artifacts/2026-08-06/current-validation.md"
   },
   "research_outputs": [
     {
@@ -101,10 +101,22 @@
       "type": "technical_report",
       "title": "Task-Local Learning, Latent Dynamics, and Bounded Planning in ShardJEPA",
       "status": "repository_technical_report",
-      "version": "2026.08.01",
+      "version": "2026.08.06",
       "path": "publications/reports/TR-2026-002-task-local-learning-planning.md",
       "doi": null,
-      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.08.01/reports/TR-2026-002-task-local-learning-planning.md",
+      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.08.06/reports/TR-2026-002-task-local-learning-planning.md",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "id": "TR-2026-003",
+      "citation_key": "galliez2026shardjepa_governed_local_cognition",
+      "type": "technical_report",
+      "title": "Traceable Creative Transfer, Functional Self-Monitoring, and Constitutional Risk Gating in ShardJEPA",
+      "status": "repository_technical_report",
+      "version": "2026.08.06",
+      "path": "publications/reports/TR-2026-003-governed-local-cognition.md",
+      "doi": null,
+      "url": "https://github.com/zedarvates/shardjepa-publications/blob/v2026.08.06/reports/TR-2026-003-governed-local-cognition.md",
       "license": "CC-BY-4.0"
     }
   ]
