@@ -1,6 +1,6 @@
 # ShardJEPA Research Roadmap
 
-_Last updated: 2026-08-22_
+_Last updated: 2026-09-10_
 
 This roadmap tracks research directions that are promising but **not yet validated claims**. New results must pass the repository's reproducibility and publication gates before they are promoted into papers, reports, or conclusions.
 
@@ -78,3 +78,41 @@ The abstractions should remain generic enough to be reused by local-first system
 - hiding failed promotions/retries behind aggregate throughput;
 - activating uncalibrated learned routing in production;
 - copying a third-party runtime wholesale instead of validating the underlying scheduling ideas independently.
+
+## Parallel research track — physical prediction on particle graphs (2026-09-10)
+
+**Claim class: Planned.** This track complements conditional compute; it does not
+replace the existing P0 priorities or assert a newly trained ShardJEPA runtime.
+ShardJEPA remains an independent research project; consumer demand is not a
+scientific validation gate.
+
+### P0 — reproducible reference and data
+
+- [x] Identify an external, public starting fixture: [CogniARC particle operators](https://github.com/zedarvates/cogniarc/blob/a4aac4a5f42e546c4a4ad777c508e4a1b0f0f136/experiments/particle_graph/README.md). Its own implementation/tests are fixture observations, not ShardJEPA results.
+- [ ] Define an action-conditioned observation schema with positions, velocities, masses, units, frames, actions, time steps and provenance.
+- [ ] Freeze train/validation/test splits by scene and seed; reserve particle counts, material parameters and longer horizons for out-of-distribution evaluation.
+- [ ] Validate numerical targets with time-step refinement and an independent reference solver before calling the corpus water data.
+- [ ] Package the generator, schema, license, checksums and exact artifacts under the dataset publication gates.
+
+### P1 — baseline ladder before learned rollout
+
+- [ ] Compare persistence and constant velocity with the task-local affine action-conditioned baseline already described in [TR-2026-002](reports/TR-2026-002-task-local-learning-planning.md).
+- [ ] Locate the actual runtime source and define an explicit adapter before modifying or training the predictor. This publications repository does not contain that runtime.
+- [ ] Evaluate learned graph-message or latent prediction only after freezing the baseline protocol. A neighbourhood graph alone is not a neural model.
+- [ ] Report errors separately by horizon (initially 1/10/50), scene and held-out condition; include rollout failures, drift, calibration, compute and memory.
+- [ ] Keep exact/reference checks authoritative for proposed actions; abstain or fall back when predictions fail the admissibility checks.
+
+**Promotion gate:** reproducible improvement over the strongest applicable
+baseline on held-out scenes, with error growth and resource costs reported.
+Retain negative results; small fixture parity tests do not establish physical
+generalisation, rollout stability, sample efficiency or speedup. Measurements
+must follow [GUIDELINES.md](GUIDELINES.md) and include raw evidence, source,
+configuration and environment.
+
+### Primary sources
+
+- [Müller et al., 2003: Particle-Based Fluid Simulation for Interactive Applications](https://matthias-research.github.io/pages/publications/sca03.pdf): physical kernel reference.
+- [Sanchez-Gonzalez et al., 2020: Learning to Simulate Complex Physics with Graph Networks](https://arxiv.org/abs/2002.09405): learned graph simulator and rollout evaluation.
+
+The interpretation of the initial water idea as a particle-neighbour graph is a
+working hypothesis, not a recovered specification or novelty claim.
