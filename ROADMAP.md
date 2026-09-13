@@ -299,3 +299,57 @@ high-stiffness drift and changing neighbour support separately. Better
 conservation alone would not establish accuracy. These negative results do not
 justify replacing the physical solver or activating a learned runtime; no merge
 or automatic promotion follows.
+
+### External gravity and conservation correction — 2026-09-13
+
+**Implemented (external):** [CogniARC's deterministic projection](https://github.com/zedarvates/cogniarc/blob/fab602c49d179b0cbc61b0371bae144220ce4a93/experiments/particle_graph/CONSERVATION_EVALUATION.md)
+wraps each unchanged frozen step-1 map. It translates proposed positions and
+velocities so that their mass-weighted means follow the exact known uniform
+constant-gravity update. The proposal is validated before projection; invalid
+or excessive raw output cannot be concealed. The correction uses only the
+method's current predicted state, fixed observed masses, gravity and dt.
+Coefficients remain frozen; no fitting, tuning, future state or reset.
+
+The [protocol and reserved recipes](https://github.com/zedarvates/cogniarc/blob/e254b3acab69dcdd4b59f63af51216df9bfd0548/experiments/particle_graph/conservation_protocol.json)
+were committed before implementation and measurements. Three new seeds generate
+8/18/27-particle groups, each crossed with two stiffnesses and zero/oblique
+gravity: 12 variants, only three independent initial-condition groups.
+Seed and actual initial-state isolation are checked against all prior v1/v2
+partitions. This remains one synthetic lattice family; it is not a broad blind
+benchmark or a new ShardJEPA dataset release.
+
+**Measured (external, synthetic fixtures):** 77 focused tests pass. All 96
+500-step comparison trajectories complete; all 72 dense-RK4 reference
+checkpoints qualify. All 216 corrected checkpoint ledgers pass mass, momentum
+and centre-of-mass tolerances. Maximum corrected momentum error is 3.362876e-14
+and maximum centre-of-mass error is 8.353765e-15. These constraints are supplied
+by the wrapper, not learned by the models.
+
+Against each map's own uncorrected result on the same new scenes, final mean
+position RMSE falls 8.49% (v1), 7.65% (blind v2), and 2.65% (material v2).
+All 216 raw/corrected centred-state comparisons agree within 1e-10, with maximum
+RMSE difference 7.463106e-15: internal trajectories remain unchanged to roundoff.
+
+**Retained negative result:** corrected material v2 still has 155.03% higher
+final position error than corrected blind v2; the high-stiffness condition is
+324.47% worse. The base-material condition improves by 31.68%. On the
+27-particle high-stiffness variants, the numerical reference has 78 neighbour
+pairs and no isolated particles; the corrected material model has 7 pairs and
+14 isolated particles. These passive counts are descriptive, not a causal
+proof that support loss alone explains the drift. Conservation alone does not
+justify replacing the physical solver.
+
+[The evidence document](https://github.com/zedarvates/cogniarc/blob/fab602c49d179b0cbc61b0371bae144220ce4a93/experiments/particle_graph/CONSERVATION_EVALUATION.md)
+links the initial records, finer reference snapshots and full evaluation, with
+actual generator/reader, schemas, byte sizes, SHA-256, source revision, command,
+CPython 3.12.14/Linux x86_64 environment and MIT license. Earlier models, sources
+and raw evidence remain unchanged. No ShardJEPA runtime, learning result,
+physical-water validation, neural capability, resource gain or activation is
+claimed. Existing publication gates and conditional-compute priorities remain.
+
+**Planned:** a separate local-interaction protocol with new reserved scenes,
+current neighbour/material observations, zero interaction outside the support
+and opposite forces per pair. First control isolated/separating particles and
+unequal masses, then compare deformation and longer rollouts against projected
+affine maps and the physical solver. This architecture is not yet implemented
+or evaluated. No automatic promotion or merge.
