@@ -353,3 +353,59 @@ and opposite forces per pair. First control isolated/separating particles and
 unequal masses, then compare deformation and longer rollouts against projected
 affine maps and the physical solver. This architecture is not yet implemented
 or evaluated. No automatic promotion or merge.
+
+### External compact local pair-force model — 2026-09-13
+
+**Implemented (external):** [CogniARC's local pair-force experiment](https://github.com/zedarvates/cogniarc/blob/645ec7c6994981079ed5e7e946986d5af1f7c444/experiments/particle_graph/LOCAL_PAIR_EVALUATION.md)
+uses four shared nonnegative coefficients over current neighbour geometry,
+relative velocity, masses and material observations. Each pair contributes
+opposite forces, with no interaction outside the fixed radius. There is no
+global projection or reference-state input in this new predictor. Constant
+uniform gravity is explicit. This is a small fitted physical approximation,
+not a graph neural network or a ShardJEPA implementation.
+
+The [protocol and reserved recipes](https://github.com/zedarvates/cogniarc/blob/c03ab1bcb3f56527f4b34cb49856f03226ab8f99/experiments/particle_graph/local_pair_protocol.json)
+were frozen before fitting. Only verified v2 training observations supply the
+fit, with synthetic internal-acceleration labels from independent dense SPH.
+Validation selects alpha 1e-8 from the fixed grid, without refitting. The
+[implementation and chosen model](https://github.com/zedarvates/cogniarc/commit/7cdd4d199fe8fcbfc499473d25171f95478f1c05)
+were published and their exact file blobs verified before generating/evaluating
+new test observations.
+
+**Measured (external, synthetic fixtures):** 91 focused tests pass. All 105
+comparison trajectories complete 500 steps: 12 new main variants and three
+separate controls, each with seven methods. All 90 numerical references qualify;
+all 90 local conservation ledgers and 12 local analytic-control checks pass.
+Main variants cross three 8/18/27-particle geometry groups with two stiffnesses
+and equal/unequal masses, under known oblique gravity. Only three independent
+main initial-condition groups are present.
+
+At T=1, local mean position RMSE is 6.556763e-3, versus 7.850053e-2 for projected
+blind v2 and 1.881451e-1 for projected material v2: reductions of 91.65% and
+96.52%. It also improves over projected v1 by 91.54%, and its final position error
+is lower than each projected model on every main variant. Centred errors
+improve too; this gain concerns internal trajectories. It compares complete
+predictors, without isolating every representation/training/integration change.
+
+**Retained limitations:** local position error remains 24.78 times the SPH
+Euler value. A physical comparator using exactly the same midpoint integrator
+reaches 3.210079e-7. No computation-cost advantage is measured. Unequal masses
+and high stiffness retain larger local errors. The separating-pair control
+retains position RMSE 2.712250e-3; the already-separated and isolated controls
+have zero local internal force and pass their analytic checks. The current
+model omits density and the reference pressure threshold; the cause of the
+remaining approximation error has not been isolated.
+
+[The source-bound evidence](https://github.com/zedarvates/cogniarc/blob/645ec7c6994981079ed5e7e946986d5af1f7c444/experiments/particle_graph/LOCAL_PAIR_EVALUATION.md)
+includes frozen coefficients, all fit candidates, actual label/initial readers,
+schemas, seven raw artifacts, sizes/checksums, exact commands, CPython
+3.12.14/Linux x86_64 context and MIT license. Earlier sources, models and evidence
+remain unchanged. No physical-water validation, ShardJEPA runtime/training,
+neural capability, new ShardJEPA dataset release, speedup or activation is
+claimed. Existing publication gates and conditional-compute priorities remain.
+
+**Planned:** predeclare acceleration-error diagnostics across neighbour density,
+separation and mass ratio, including low-density pressure/viscosity controls.
+Diagnose residuals before proposing any density-aware feature change, and
+reserve fresh evaluation scenes before another fit. Preserve the present model
+and positive/negative evidence. No merge or automatic promotion.
