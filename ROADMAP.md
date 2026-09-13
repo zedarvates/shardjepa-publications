@@ -249,3 +249,53 @@ maps and retain error growth/conservation failures by material and particle
 count. Any geometry-feature revision needs a separate future protocol and fresh
 scenes; these test results must not become a tuning set. No automatic activation
 or merge follows from the averaged gain.
+
+### External frozen-model rollout evaluation — 2026-09-13
+
+**Implemented (external):** [CogniARC's rollout runner](https://github.com/zedarvates/cogniarc/blob/f1a35b9fdbbaf68c8df33dccc84a2abac7987400/experiments/particle_graph/rollouts.py)
+repeatedly applies the saved step-1 maps to their own predicted state for 500
+steps at dt 0.002, without fitting, resets, corrections or future-state input.
+The [protocol](https://github.com/zedarvates/cogniarc/blob/3737d3e256acc654954b0d0a5359b20096cc0c8b/experiments/particle_graph/rollout_protocol.json)
+was committed before implementation and measurements. It pins all model/data
+inputs and predeclares numerical qualification, abort rules and aggregation
+without survivor-only means. The same 12 v2 variants from three groups are
+extended to T=1.0; this is not a fresh blind benchmark.
+
+**Measured (external, synthetic fixtures):** [the dated evidence](https://github.com/zedarvates/cogniarc/blob/f1a35b9fdbbaf68c8df33dccc84a2abac7987400/experiments/particle_graph/ROLLOUT_EVALUATION.md)
+records 66 passing focused tests. All 84 comparison trajectories finish, all 72
+reference checkpoints qualify, and 36 short-prefix checks reproduce v2 exactly.
+Dense RK4 runs at dt 0.0005 and 0.00025; maximum resolution disagreement is
+6.426019e-10 for position and 1.848105e-9 for velocity. These checks concern the
+same simplified equations, not physical water accuracy.
+
+**Retained negative result:** at step 500, material v2 mean scene position RMSE
+is 1.188473e-1 versus blind v2 6.796472e-2, a 74.87% increase. It is also 104.39%
+higher than frozen v1 and 19.28% higher than known-gravity ballistic prediction.
+The SPH Euler comparator reaches 1.913961e-4; no relative compute-cost claim is
+made. The material model's earlier average advantage does not persist over this
+interval. High stiffness has a 324.62% increase relative to blind v2; across the
+27-particle variants the increase is 90.68%.
+
+All three learned maps fail the predeclared 1e-8 momentum tolerance on all twelve
+final scenes. Maximum momentum errors are 8.999100e-5 (v1), 1.002475e-2 (blind v2)
+and 1.012499e-6 (material v2). SPH Euler and known-gravity ballistic prediction pass
+all twelve. Masses are carried as fixed observations; zero mass error is not
+learned conservation. Kinetic energy is recorded, not assumed conserved under
+gravity, pressure and viscosity. Finite completion is separate from accuracy
+and conservation.
+
+The [raw evaluation](https://github.com/zedarvates/cogniarc/blob/f1a35b9fdbbaf68c8df33dccc84a2abac7987400/experiments/particle_graph/evidence/2026-09-13-rollouts/evaluation.json)
+and [reference snapshots](https://github.com/zedarvates/cogniarc/blob/f1a35b9fdbbaf68c8df33dccc84a2abac7987400/experiments/particle_graph/evidence/2026-09-13-rollouts/reference.jsonl)
+include source/input hashes, exact command, environment, schemas and failure
+records; byte sizes, checksums, generator/reader and MIT license are linked in
+the evidence document. Earlier source files, models and raw evidence remain
+unchanged. Source code and these results belong to CogniARC; no ShardJEPA
+runtime, learning result, dataset release, neural capability or resource gain
+is claimed. Existing publication gates and conditional-compute priorities remain.
+
+**Planned:** before a predictor revision, predeclare explicit treatment of known
+gravity and zero net internal momentum change on fresh reserved scenes. Diagnose
+high-stiffness drift and changing neighbour support separately. Better
+conservation alone would not establish accuracy. These negative results do not
+justify replacing the physical solver or activating a learned runtime; no merge
+or automatic promotion follows.
