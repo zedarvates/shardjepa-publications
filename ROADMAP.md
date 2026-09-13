@@ -200,3 +200,52 @@ a v2 corpus with material variation in development and new test seeds before
 changing the predictor features, then compare material-conditioned affine
 prediction and longer autoregressive trajectories. Preserve the v1 result.
 The ShardJEPA runtime comparison and conditional-compute priorities remain open.
+
+### External paired-material comparison — 2026-09-13
+
+**Implemented (external):** [CogniARC v2](https://github.com/zedarvates/cogniarc/blob/038457dfca5ac8bb749c1de0c00d45d70bd75dd1/experiments/particle_graph/MATERIAL_BASELINE.md)
+adds four material variants per initial-condition group. The manifest and
+protocol were committed at [0751eb36ca1b01d7a1cc2f1484f49cd563d900e9](https://github.com/zedarvates/cogniarc/commit/0751eb36ca1b01d7a1cc2f1484f49cd563d900e9)
+before generation and scoring. Sixteen training, eight validation and twelve
+test scenes derive from only 4/2/3 initial-condition groups. Groups never cross
+partitions and all seeds are absent from v1. The unchanged v1 model and a blind
+v2 refit are controls for a ridge model with six material–state interactions.
+It is affine in expanded features, not linear in raw materials and state.
+
+**Measured (external, synthetic fixtures):** all 36 scenes pass dense RK4
+resolution and conservation checks; the combined focused suite passes 57 tests.
+Blind v2 selects alpha 0.01 and material v2 selects 1e-6, using validation only.
+Both models are saved before separate test scoring. At step 50, material v2
+mean scene position RMSE is 6.703571e-4, versus blind v2 8.409680e-4 (20.29% lower)
+and frozen v1 7.863229e-4 (14.75% lower). Mean velocity RMSE falls by 20.48% and
+14.95%, respectively. The v1 experiment's earlier percentage belongs to a
+different test corpus and is not a directly comparable score.
+
+**Retained negative results:** relative to blind v2, mean step-50 position RMSE
+rises by 10.89% at 27 particles and 31.57% on the joint-interpolation material.
+Material v2 wins 27/36 scene/horizon pairs against blind v2 and 24/36 against
+frozen v1; these are correlated observations. All 27 paired material-change
+contrasts improve over a zero response, but better parameter response does not
+guarantee lower absolute trajectory error. The lower overall mean does not
+establish improvement across all held-out conditions.
+
+Source/reader, commands, environment, license, schemas, byte sizes and SHA-256
+values are in the [evidence document](https://github.com/zedarvates/cogniarc/blob/038457dfca5ac8bb749c1de0c00d45d70bd75dd1/experiments/particle_graph/MATERIAL_BASELINE.md).
+Raw [numerical checks](https://github.com/zedarvates/cogniarc/blob/038457dfca5ac8bb749c1de0c00d45d70bd75dd1/experiments/particle_graph/evidence/2026-09-13-materials/numerics.json),
+[selected models](https://github.com/zedarvates/cogniarc/blob/038457dfca5ac8bb749c1de0c00d45d70bd75dd1/experiments/particle_graph/evidence/2026-09-13-materials/models.json)
+and [evaluation, including regressions](https://github.com/zedarvates/cogniarc/blob/038457dfca5ac8bb749c1de0c00d45d70bd75dd1/experiments/particle_graph/evidence/2026-09-13-materials/evaluation.json)
+are committed alongside the deterministic generator and split snapshot files.
+V1 implementations, manifest, model and raw evidence remain unchanged.
+
+This completes the external v2 direct-prediction comparison proposed above.
+The corpus has no walls and only one lattice family; direct predictions still
+restart at t=0. No ShardJEPA runtime, action-conditioned learning result, dataset
+release, neural training, calibrated water, rollout stability or resource gain
+is claimed. ShardJEPA's actual runtime comparison and dataset publication gates
+remain open; the conditional-compute priorities are preserved.
+
+**Planned:** predeclare longer autoregressive evaluation of the frozen step-1
+maps and retain error growth/conservation failures by material and particle
+count. Any geometry-feature revision needs a separate future protocol and fresh
+scenes; these test results must not become a tuning set. No automatic activation
+or merge follows from the averaged gain.
