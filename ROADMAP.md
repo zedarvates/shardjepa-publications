@@ -145,7 +145,7 @@ reporting; do not infer learned generalisation from the numerical checks.
 adds fixed frictionless walls, a wall-contact radius, swept straight-line drift,
 normal restitution, and explicit wall impulse/energy ledgers. The combined
 particle-graph suite now passes 33 tests. Five analytic flight cases and four
-coupled SPH cases pass their nine stated validation gatesets; all exercise
+coupled SPH cases pass the stated validation checks; all exercise
 contact, including repeated and corner impacts.
 
 This establishes the narrower geometric contact and bookkeeping properties
