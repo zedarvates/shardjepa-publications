@@ -137,3 +137,24 @@ rollouts and a trained predictor remain unvalidated.
 the dataset gates, then compare the existing affine baseline using training
 scenes only and validation-only selection. Preserve the test split for separate
 reporting; do not infer learned generalisation from the numerical checks.
+
+### Box-contact prerequisite update — 2026-09-13
+
+**Observed fixture (external):** the
+[CogniARC box-contact follow-up](https://github.com/zedarvates/cogniarc/blob/7df23110477f763503e23a670eb01c9bc40595c0/experiments/particle_graph/BOUNDARY_VALIDATION.md)
+adds fixed frictionless walls, a wall-contact radius, swept straight-line drift,
+normal restitution, and explicit wall impulse/energy ledgers. The combined
+particle-graph suite now passes 33 tests. Five analytic flight cases and four
+coupled SPH cases pass their nine stated validation gatesets; all exercise
+contact, including repeated and corner impacts.
+
+This establishes the narrower geometric contact and bookkeeping properties
+described in the report. Force-kick/drift splitting does not solve exact curved
+impact times under acceleration, and the coupled cases do not validate fluid
+trajectory accuracy. SPH wall-density support, no-slip treatment, calibrated
+water behaviour and trained prediction remain outside this evidence.
+
+The next learning comparison remains the affine baseline on the existing frozen
+scenes, with training-only fitting and validation-only selection. Boundary
+verification cases are separate fixtures and do not change those learning
+splits. No ShardJEPA runtime or learning result is claimed by this update.
