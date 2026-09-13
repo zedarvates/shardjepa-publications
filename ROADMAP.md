@@ -125,7 +125,7 @@ now provides 10 synthetic scenes, a frozen 3/2/5 train/validation/test split,
 reserved particle counts and material parameters, and sparse snapshots at
 steps 0/1/10/50. Three Euler resolutions are compared at the same physical time
 against independently coded dense RK4 at two resolutions. All ten scenes pass
-the stated numerical gates; the combined particle-graph suite passes 21 tests.
+the stated numerical gates; the particle-graph suite passed 21 tests at that stage.
 
 The linked report includes exact recipes, schema, source and data hashes,
 execution commands and environment. This is an external numerical prerequisite,
@@ -144,7 +144,7 @@ reporting; do not infer learned generalisation from the numerical checks.
 [CogniARC box-contact follow-up](https://github.com/zedarvates/cogniarc/blob/7df23110477f763503e23a670eb01c9bc40595c0/experiments/particle_graph/BOUNDARY_VALIDATION.md)
 adds fixed frictionless walls, a wall-contact radius, swept straight-line drift,
 normal restitution, and explicit wall impulse/energy ledgers. The combined
-particle-graph suite now passes 33 tests. Five analytic flight cases and four
+particle-graph suite passed 33 tests at that stage. Five analytic flight cases and four
 coupled SPH cases pass the stated validation checks; all exercise
 contact, including repeated and corner impacts.
 
@@ -154,7 +154,49 @@ impact times under acceleration, and the coupled cases do not validate fluid
 trajectory accuracy. SPH wall-density support, no-slip treatment, calibrated
 water behaviour and trained prediction remain outside this evidence.
 
-The next learning comparison remains the affine baseline on the existing frozen
-scenes, with training-only fitting and validation-only selection. Boundary
+At that stage, the next learning comparison was the affine baseline on the existing
+frozen scenes, with training-only fitting and validation-only selection. Boundary
 verification cases are separate fixtures and do not change those learning
 splits. No ShardJEPA runtime or learning result is claimed by this update.
+
+### External affine baseline update — 2026-09-13
+
+**Implemented (external):** the [CogniARC affine runner](https://github.com/zedarvates/cogniarc/blob/2dadc7f34b2e32e21bdbc7813a1db11a7f71c9d1/experiments/particle_graph/affine.py)
+fits a separate direct horizon regression at steps 1/10/50, using only initial
+centred positions/velocities and known gravity. Three scenes supply training;
+two select regularization. A separate command scores the saved model on five
+test scenes. The [protocol was committed before scoring](https://github.com/zedarvates/cogniarc/blob/5e39eb67db3526eeea63d525ba7b9aeafc4b0677/experiments/particle_graph/affine_protocol.json).
+The frozen manifest and snapshot bytes are unchanged; public test targets were
+reserved from fitting and selection, not kept blind from readers.
+
+**Measured (external, synthetic fixtures):** [the dated evidence](https://github.com/zedarvates/cogniarc/blob/2dadc7f34b2e32e21bdbc7813a1db11a7f71c9d1/experiments/particle_graph/AFFINE_BASELINE.md)
+records 45 passing focused tests, the five candidate scores, selected alpha
+0.0001, coefficients, per-scene/horizon errors, exact commands, environment and
+input/source hashes. Affine position and velocity errors are below persistence,
+constant velocity and known-gravity ballistic prediction in each of the five
+scenes at all three horizons. At step 50 (dimensionless time 0.1), mean scene
+position RMSE is 7.376996e-4 versus ballistic 1.252737e-3 (41.11% lower);
+mean velocity RMSE is 1.463711e-2 versus 2.487859e-2 (41.17% lower).
+
+Raw artifacts: [selected model](https://github.com/zedarvates/cogniarc/blob/2dadc7f34b2e32e21bdbc7813a1db11a7f71c9d1/experiments/particle_graph/evidence/2026-09-13-affine/model.json)
+and [test evaluation](https://github.com/zedarvates/cogniarc/blob/2dadc7f34b2e32e21bdbc7813a1db11a7f71c9d1/experiments/particle_graph/evidence/2026-09-13-affine/evaluation.json).
+Both schemas, byte sizes, SHA-256 values, the actual reader, deterministic target
+generator and repository MIT license are linked in the evidence document.
+
+The stiffness case retains the largest error. Development uses one material
+configuration and the model has no material inputs, so these results do not
+identify physical parameter dependence. Five tiny scenes and correlated
+horizons do not establish broad generalisation, calibrated water accuracy,
+autoregressive stability, conservation or resource savings. Direct predictions
+restart at t=0; no learned rollout or wall interaction was evaluated.
+
+This measured baseline is CogniARC code; it neither implements nor evaluates
+the ShardJEPA task-local affine/action-conditioned runtime from TR-2026-002.
+That runtime must still be located and adapted explicitly. No ShardJEPA
+learning result, dataset release, neural training or runtime change is claimed.
+
+**Planned:** review the external reader/contract under the dataset gates; freeze
+a v2 corpus with material variation in development and new test seeds before
+changing the predictor features, then compare material-conditioned affine
+prediction and longer autoregressive trajectories. Preserve the v1 result.
+The ShardJEPA runtime comparison and conditional-compute priorities remain open.
