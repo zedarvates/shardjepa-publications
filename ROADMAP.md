@@ -409,3 +409,65 @@ separation and mass ratio, including low-density pressure/viscosity controls.
 Diagnose residuals before proposing any density-aware feature change, and
 reserve fresh evaluation scenes before another fit. Preserve the present model
 and positive/negative evidence. No merge or automatic promotion.
+
+
+### External frozen force-law diagnostics — 2026-09-13
+
+**Implemented (external):** [CogniARC's force diagnostic](https://github.com/zedarvates/cogniarc/blob/08d9318315206ebbedc13c598aa818a3240608bb/experiments/particle_graph/FORCE_DIAGNOSTICS.md)
+evaluates the frozen local pair law and independent dense physical law on
+identical observations, separating pressure and viscosity. It reuses the 15
+published trajectories as diagnostic data and adds 81 static pair recipes plus
+four neighbour-context controls. These are not new blind generalisation results.
+
+The [protocol](https://github.com/zedarvates/cogniarc/blob/1d6d8fa0038d6cd6dd2ed7982729e861345512f6/experiments/particle_graph/force_diagnostic_protocol.json)
+was published before implementation/measurement. The
+[diagnostic module, tests and log](https://github.com/zedarvates/cogniarc/commit/8f714ff3dab42827ae0dd870bfd1c5cd6059972a)
+were published and their exact blobs verified before the diagnostic run. The
+earlier four coefficients, sources and raw evidence remain unchanged; no new
+fit or selection was performed.
+
+**Measured (external, synthetic diagnostic fixtures):** 106 focused tests pass.
+All 295 observation/control records pass 7,376 numerical and structural checks;
+all 90 replayed noninitial local states exactly match the earlier publication.
+All 90 reused reference checkpoints match their qualified published digests.
+Counts describe repeated checks and correlated observations, not independent
+experiments. Main summaries retain only three geometry groups and separate the
+old/new controls.
+
+**Retained structural failures:** all 22 interacting static pairs with both
+densities below the pressure threshold have nonzero local pressure where the
+reference has zero. At fixed geometry, multiplying both masses by 20 multiplies
+local viscous acceleration by 20 but divides the physical value by 20, exposing
+the missing inverse-density normalization in this reference equation. The
+previously separating pair underestimates the initial viscous response by
+96.86%, with spurious pressure also present. Adding neighbours changes the
+physical target-pair contribution while the density-free local contribution is
+identical; other edges and total forces also change.
+
+On the main reference states, acceleration RMSE is 3.826241e-2 for pressure and
+1.547891e-2 for viscosity; the corresponding relative errors are 9.84% and
+74.53%. Pressure has the larger absolute error, and component errors can cancel.
+At step 500, the total instantaneous approximation error is 104.94% of reference
+acceleration RMS. These are force-law diagnostics, not revised position errors.
+They do not assign a causal percentage of accumulated rollout error to one
+missing feature or erase the prior gains against projected affine maps.
+
+[The evidence report](https://github.com/zedarvates/cogniarc/blob/08d9318315206ebbedc13c598aa818a3240608bb/experiments/particle_graph/FORCE_DIAGNOSTICS.md)
+provides all bins/controls, actual generator and reader, raw states/component
+vectors, per-state pair statistics, schemas, sizes, SHA-256, exact revisions,
+commands, CPython 3.12.14/Linux x86_64 environment and MIT license. All 27 static
+at/outside-support cases return zero acceleration in both implementations.
+
+This tranche changes ROADMAP.md only here. No ShardJEPA runtime/training,
+new ShardJEPA dataset publication, neural model, physical-water validation,
+resource gain, activation or merge is claimed. Publication gates and
+conditional-compute priorities remain intact.
+
+**Planned:** predeclare separate and joint ablations of supplied pressure
+threshold and inverse-density features, with density computed from current
+positions/masses only and identical training/validation observations/targets.
+Reserve fresh geometry groups and mass-scale/ratio conditions before fitting;
+freeze candidates and selection before generating/scoring those future tests.
+Retain the current local model and same-midpoint physical comparator. Evaluate
+force error, 500-step accuracy/conservation, controls and actual cost separately.
+Supplying exact physical equations is not discovery or a ShardJEPA result.
