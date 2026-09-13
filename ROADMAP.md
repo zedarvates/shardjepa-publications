@@ -1,6 +1,6 @@
 # ShardJEPA Research Roadmap
 
-_Last updated: 2026-09-10_
+_Last updated: 2026-09-13_
 
 This roadmap tracks research directions that are promising but **not yet validated claims**. New results must pass the repository's reproducibility and publication gates before they are promoted into papers, reports, or conclusions.
 
@@ -116,3 +116,24 @@ configuration and environment.
 
 The interpretation of the initial water idea as a particle-neighbour graph is a
 working hypothesis, not a recovered specification or novelty claim.
+
+### Numerical prerequisite update — 2026-09-13
+
+**Observed fixture (external):** the
+[CogniARC numerical follow-up](https://github.com/zedarvates/cogniarc/blob/693a68b18529dd7af6d305198e5850096383e769/experiments/particle_graph/NUMERICAL_VALIDATION.md)
+now provides 10 synthetic scenes, a frozen 3/2/5 train/validation/test split,
+reserved particle counts and material parameters, and sparse snapshots at
+steps 0/1/10/50. Three Euler resolutions are compared at the same physical time
+against independently coded dense RK4 at two resolutions. All ten scenes pass
+the stated numerical gates; the combined particle-graph suite passes 21 tests.
+
+The linked report includes exact recipes, schema, source and data hashes,
+execution commands and environment. This is an external numerical prerequisite,
+not a ShardJEPA result or a newly released ShardJEPA dataset. Both solvers use
+the same simplified equations; boundaries, calibrated water behaviour, longer
+rollouts and a trained predictor remain unvalidated.
+
+**Next for this repository:** review/import the versioned snapshot contract under
+the dataset gates, then compare the existing affine baseline using training
+scenes only and validation-only selection. Preserve the test split for separate
+reporting; do not infer learned generalisation from the numerical checks.
