@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Note: dist/ holds the released bundles on purpose and stays tracked.
